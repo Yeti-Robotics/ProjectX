@@ -4,6 +4,7 @@
 #include <EthernetClient.h>
 #include <EthernetServer.h>
 #include <EthernetUdp.h>
+#include <DualVNH5019MotorShield.h>
 
 /90-a2-da-0f-25-E7
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0f, 0x25, 0xE7};
