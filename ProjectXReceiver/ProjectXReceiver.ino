@@ -17,32 +17,27 @@ EthernetServer server = EthernetServer(23);
 
 
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);     //For visual feedback on what's going on
-  while(!Serial){
-    ;   //wait for serial to connect -- needed by Leonardo
-  }
+	// put your setup code here, to run once:
+	Serial.begin(9600);     //For visual feedback on what's going on
+	while(!Serial){}
 
-  Ethernet.begin(mac,ip); // init EthernetShield
-  delay(1000);
+	Ethernet.begin(mac,ip); // init EthernetShield
+	delay(1000);
 
-  server.begin();
-  if(server.available()){
-    Serial.println("Client available");
-  }
+	server.begin();
+	if(server.available()){
+		Serial.println("Client available");
+	}
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  EthernetClient client = server.available();
-  message = client.read();
-
-  server.write(message);
-  server.write("Testu ");
-  Serial.println(message);
-
-//  if (client == true){                    <----- This check screwed it up. Not needed.
-//    Serial.println("Client Connected.");
-//    server.write(client.read());        //send back to the client whatever     the client sent to us.
-//  }
+	EthernetClient client = server.available();
+	message = client.read();
+	Serial.println("Client Message" + message);
+	Serial.println(message);
+	if(message & 128) {
+		setM1Speed(message & 127);
+	} else {
+		setM2Speed(message & 127);
+	}
 }
