@@ -9,10 +9,10 @@ timeout = 3 # timeout in seconds
 host = "192.168.1.113"
 print ("Connecting to " + host)
 port = 23
-s = socket(AF_INET, SOCK_STREAM)
+#s = socket(AF_INET, SOCK_STREAM)
 print "Socket made"
-ready = select.select([s],[],[],timeout)
-s.connect((host,port))
+#ready = select.select([s],[],[],timeout)
+#s.connect((host,port))
 print("Connection made")
 
 
@@ -53,27 +53,17 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
-SPICLK_1 = 18
-SPIMISO_1 = 23
-SPIMOSI_1 = 24
-SPICS_1 = 25
-
-SPICLK_2 = 18
-SPIMISO_2 = 23
-SPIMOSI_2 = 24
-SPICS_2 = 25
+SPICLK = 18
+SPIMISO = 23
+SPIMOSI = 24
+SPICS = 25
 
 
 # set up the SPI interface pins
-GPIO.setup(SPIMOSI_1, GPIO.OUT)
-GPIO.setup(SPIMISO_1, GPIO.IN)
-GPIO.setup(SPICLK_1, GPIO.OUT)
-GPIO.setup(SPICS_1, GPIO.OUT)
-
-GPIO.setup(SPIMOSI_2, GPIO.OUT)
-GPIO.setup(SPIMISO_2, GPIO.IN)
-GPIO.setup(SPICLK_2, GPIO.OUT)
-GPIO.setup(SPICS_2, GPIO.OUT)
+GPIO.setup(SPIMOSI, GPIO.OUT)
+GPIO.setup(SPIMISO, GPIO.IN)
+GPIO.setup(SPICLK, GPIO.OUT)
+GPIO.setup(SPICS, GPIO.OUT)
 
 
 # 10k trim pot connected to adc #0
@@ -92,9 +82,12 @@ while True:
 	left_joy_sendable = (127 / 1023) | 128
 	right_joy_sendable = (127 / 1023)
 
-	if ready[0]:        #if data is actually available for you
-		print("[INFO] Sending message...")
-		s.sendall(chr(left_joy_sendable))
-		s.sendall(chr(right_joy_sendable))
-		print("[INFO] Message sent.")
-		time.sleep(0.5)
+#	if ready[0]:        #if data is actually available for you
+	print("[INFO] Sending message...")
+#		s.sendall(chr(left_joy_sendable))
+#		s.sendall(chr(right_joy_sendable))
+	print("[INFO] Message sent.")
+	print(left_joy_value , ":" , left_joy_sendable)
+	print(left_joy_value , ":" , left_joy_sendable)
+	time.sleep(0.5)
+
